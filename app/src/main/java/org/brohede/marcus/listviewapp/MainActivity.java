@@ -2,8 +2,14 @@ package org.brohede.marcus.listviewapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,5 +46,35 @@ public class MainActivity extends AppCompatActivity {
         //    See: https://material.io/guidelines/components/lists.html#lists-specs
         //    Look for "singel line specs" for "text only" lists and modify the list_item_textview
         //    accordingly
+
+        String[] rawData = {"Matterhorn", "Mont Blanc", "Denali"};
+        List <String> listData = new ArrayList<String>(Arrays.asList(rawData));
+        ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), R.layout.list_item_textview, R.id.my_item_textview, listData);
+        ListView myListView = (ListView)findViewById(R.id.my_textview);
+        myListView.setAdapter(adapter);
+        adapter.add("Mount Everest");
+
+
+
+
+
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+
+                String selectedText = mountainNames[position] + ", " + Integer.toString(mountainHeights[position]) + ", "
+                        + mountainLocations[position];
+
+
+                Toast.makeText(getApplicationContext(), selectedText, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //fab.setOnClickListener((view) {
+         //       Snackbar.make(view, "Click", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        //});
     }
 }
